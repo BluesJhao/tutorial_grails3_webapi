@@ -268,6 +268,8 @@ class Persona {
 Ahora las relaciones ya son bidireccionales.
 
 Vamos a crear alguna instancia. En nuestro conf/application.yml tenemos configurada una base de datos en memoria, esta se inicia cada vez que arrancamos el proyecto. Si guardamos las instancias desde init/BootStrap.groovy, cada vez que se arranque el proyecto se insertarán.
+En un entorno de desarrolo+producción es común cargar estar instancias únicamente cuando estamos en desarrollo mientras que en producción utilizaríamos las que ya existan en la base de datos, por lo que vamos a controlar
+nuestro entorno y crearlas únicamente en desarrollo. Para ello Grails nos permite en todo momento conocerlo mediante *grails.util.Environment.current*   
 
 Sobra decir que con cualquier otro RBDMS GORM funciona igualmente, simplemente cambiando el driver y la cadena de conexión en conf/application.yml
 ```groovy
@@ -276,8 +278,22 @@ import gente.*
 class BootStrap {
 
     def init = { servletContext ->
-        
-        
+    
+        switch (Environment.current) {
+            case Environment.DEVELOPMENT:
+                configureForDevelopment()
+                break
+            case Environment.PRODUCTION:
+                configureForProduction()
+                break
+        }
+    }
+
+    void configureForProduction(){
+
+    }
+
+    void configureForDevelopment(){
         
         Persona elena = new Persona(
             nombre:"Elena",

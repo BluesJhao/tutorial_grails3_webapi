@@ -1,10 +1,26 @@
 import gente.*
 
+import grails.util.Environment
+
 class BootStrap {
 
     def init = { servletContext ->
-        
-        
+
+        switch (Environment.current) {
+            case Environment.DEVELOPMENT:
+                configureForDevelopment()
+                break
+            case Environment.PRODUCTION:
+                configureForProduction()
+                break
+        }
+    }
+
+    void configureForProduction(){
+
+    }
+
+    void configureForDevelopment(){
         
         Persona elena = new Persona(
             nombre:"Elena",
