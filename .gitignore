@@ -36,3 +36,6 @@
 /build
 /.nb-gradle/
 /.gradle
+
+# idea
+/.idea

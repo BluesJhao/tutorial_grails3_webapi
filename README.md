@@ -408,4 +408,50 @@ class ApplicationController{
 ```
 
 
-## En construcción ... el viernes estará completo o el domingo lo más tardar
+## Y ahora ... REST
+
+Hasta aquí nuestra aplicación está sirviendo JSON pero no es propiamente dicha, una aplicación
+RESTfull. Para ello, debe permitir que busquemos un recurso en concreto, que podamos actualizarlo,
+borrarlo, etc (según nuestras especificaciones nos digan que se pueda hacer o no, claro).
+
+Grails nos permite ofrecer nuestros objetos de dominio de una forma simple a través de REST, para
+ lo cual únicamente tenemos que etiquetar a aquellos que queramos como *grails.rest.Resource*:
+ 
+```
+ import grails.rest.Resource
+ 
+ @Resource(uri='/personas')
+ class Persona {
+
+```
+
+Simplemente con añadir esa etiqueta, Grails se encarga de crear los mapeos asi como un controller
+que nos permitirá listar, buscar, actualizar, borrar, etc los recursos de la clase Persona.
+
+Si ejecutamos la aplicación :
+
+```
+$ grails run-app
+Grails application running at http://localhost:8080 in environment: development
+```
+
+y accedemos con un navegador a http://localhost:8080/personas.json veremos algo así como:
+ 
+```
+[ {"id":1,"apellidos":"Nito del Bosque","dedos":[{"id":2},{"id": .... ]
+
+```
+
+Es decir, Grails nos devolverá un volcado de objetos de nuestro dominio en formato JSON.
+
+Así mismo si queremos acceder a un elemento determinado, lo haremos por su ID (en este caso "1"),
+http://localhost:8080/personas/1.json 
+
+```
+{"id":1,"apellidos":"Nito del Bosque","dedos":[{"id":2},{"id": .... }
+
+```
+
+
+
+## Continuará

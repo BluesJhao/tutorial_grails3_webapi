@@ -1,11 +1,12 @@
 package tutorial_grails3_webapi
 
+import gente.GenteService
 import gente.Persona
 import grails.converters.JSON
 
 class ApplicationController{
-    
-    def genteService
+
+    GenteService genteService
     
     //generado con una vista
     def index() {
@@ -18,7 +19,7 @@ class ApplicationController{
     
     //generado por conversión
     def elena() {   
-        render genteService.getElena() as JSON
+        render genteService.findPersona('Elena') as JSON
     }
     
     //generado a partir de un mapa
